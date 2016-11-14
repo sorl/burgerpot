@@ -75,3 +75,6 @@ class Bug(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.submitter, self.seen)
+
+    def get_absolute_url(self):
+        return '/report/{}/'.format(self.pk)

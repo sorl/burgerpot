@@ -15,8 +15,7 @@ class BugForm(forms.ModelForm):
         'steps_to_reproduce',
         'actual_behavior',
         'expected_behavior',
-        'troubleshooting',
-        'workaround',
+        Row('troubleshooting', 'workaround'),
         'screenshot',
     )
 

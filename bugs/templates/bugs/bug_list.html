@@ -1,0 +1,24 @@
+{% extends "base.html" %}{% load i18n %}
+
+{% block "primary" %}
+  <div class="container expand-on-small-only">
+    <div class="row valign change-form">
+      <div class="col s12 m12 l9 offset-l1">
+        <table>
+          <tr>
+            <th>{% trans "Description" %}</th>
+            <th>{% trans "Created" %}</th>
+            <th>{% trans "Status" %}</th>
+          </tr>
+          {% for bug in bug_list %}
+          <tr>
+            <td><a href="{{ bug.get_absolute_url }}">{{ bug.description }}</a></td>
+            <td>{{ bug.created }}</td>
+            <td>{{ bug.get_status_display }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
