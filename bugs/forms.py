@@ -7,8 +7,8 @@ class BugForm(forms.ModelForm):
     layout = Layout(
         'seen',
         Fieldset('',
-            Row('browser_name', 'browser_name_other', 'browser_version'),
-            Row('operating_system', 'operating_system_other', 'operating_system_version'),
+            Row('browser_name', 'browser_version', 'browser_name_other'),
+            Row('operating_system', 'operating_system_version', 'operating_system_other'),
         ),
         'description',
         Row('severity', 'priority'),
