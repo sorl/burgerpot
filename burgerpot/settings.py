@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'material',
+    'easy_select2',
     'bugs',
 ]
 LANGUAGE_CODE = 'en-us'

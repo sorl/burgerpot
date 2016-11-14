@@ -21,4 +21,4 @@ class BugForm(forms.ModelForm):
 
     class Meta:
         model = Bug
-        exclude = ['submitter', 'status', 'created', 'updated']
+        exclude = ['project', 'status', 'created_by', 'updated_by', 'created', 'updated']

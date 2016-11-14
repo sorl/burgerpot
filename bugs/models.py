@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 
 BROWSERS = (
@@ -46,8 +47,25 @@ STATUSES = (
 )
 
 
+class Project(models.Model):
+    name = models.CharField(_('name'), max_length=255, unique=True)
+    slug = models.SlugField(_('slug'), unique=True)
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL)
+
+    class Meta:
+        verbose_name = _('project')
+        verbose_name_plural = _('projects')
+        ordering = ('name',)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('bug_list', kwargs={'slug': self.project.slug})
+
+
 class Bug(models.Model):
-    submitter = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('submitter'))
+    project = models.ForeignKey(Project, verbose_name=_('project'), on_delete=models.CASCADE, null=True)
     seen = models.DateTimeField(_('date seen'), help_text=_('When was the bug seen?'))
     browser_name = models.CharField(_('browser name'), choices=BROWSERS, max_length=20, blank=True)
     browser_version = models.CharField(_('browser version'), max_length=255, blank=True)
@@ -65,6 +83,8 @@ class Bug(models.Model):
     workaround = models.TextField(_('workaround'), help_text=_('If you found a way to make the program work in spite of the bug, describe how you did it here.'), blank=True)
     status = models.IntegerField(_('status'), choices=STATUSES, default=10)
     screenshot = models.ImageField(_('screenshot'), help_text=_('Upload a helpful screenshot if you have one'), upload_to='bugs', blank=True)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('created by'), null=True, on_delete=models.SET_NULL, related_name='bug_created_by_set')
+    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('updated by'), null=True, on_delete=models.SET_NULL, related_name='bug_updated_by_set')
     created = models.DateTimeField(_('created'), auto_now_add=True)
     updated = models.DateTimeField(_('updated'), auto_now=True)
 
@@ -74,7 +94,7 @@ class Bug(models.Model):
         verbose_name_plural = _('bugs')
 
     def __str__(self):
-        return '{} - {}'.format(self.submitter, self.seen)
+        return '{} - {}'.format(self.project, self.description)
 
     def get_absolute_url(self):
-        return '/report/{}/'.format(self.pk)
+        return reverse('bug_detail', kwargs={'slug': self.project.slug, 'bug_id': self.pk})

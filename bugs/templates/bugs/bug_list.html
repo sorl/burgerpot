@@ -4,18 +4,23 @@
   <div class="container expand-on-small-only">
     <div class="row valign change-form">
       <div class="col s12 m12 l9 offset-l1">
+        <h1>{{ title }}</h1>
         <table>
-          <tr>
-            <th>{% trans "Description" %}</th>
-            <th>{% trans "Created" %}</th>
-            <th>{% trans "Status" %}</th>
-          </tr>
+          <thead>
+            <tr>
+              <th data-field="description">{% trans "Description" %}</th>
+              <th data-field="created">{% trans "Created" %}</th>
+              <th data-field="status">{% trans "Status" %}</th>
+            </tr>
+          </thead>
           {% for bug in bug_list %}
-          <tr>
-            <td><a href="{{ bug.get_absolute_url }}">{{ bug.description }}</a></td>
-            <td>{{ bug.created }}</td>
-            <td>{{ bug.get_status_display }}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td><a href="{{ bug.get_absolute_url }}">{{ bug.description }}</a></td>
+              <td>{{ bug.created }}</td>
+              <td>{{ bug.get_status_display }}</td>
+            </tr>
+          </tbody>
           {% endfor %}
         </table>
       </div>
