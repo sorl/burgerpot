@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+source burgerpot-env/bin/activate
+nvm use 6.9
