@@ -51,7 +51,7 @@ class Bug(models.Model):
     seen = models.DateTimeField(_('date seen'))
     browser_name = models.CharField(_('browser name'), choices=BROWSERS, max_length=20, blank=True)
     browser_name_other = models.CharField(_('browser name other'), max_length=255, blank=True)
-    browser_verson = models.CharField(_('browser version'), max_length=255, blank=True)
+    browser_version = models.CharField(_('browser version'), max_length=255, blank=True)
     operating_system = models.CharField(_('operating system'), max_length=20, choices=OPERATING_SYSTEMS, blank=True)
     operating_system_other = models.CharField(_('operating system other'), max_length=255, blank=True)
     operating_system_version = models.CharField(_('operating system version'), max_length=255, blank=True)
@@ -64,7 +64,7 @@ class Bug(models.Model):
     troubleshooting = models.TextField(_('troubleshooting/testing Steps Attempted'), help_text=_('Describe anything you did to try to fix it on your own.'), blank=True)
     workaround = models.TextField(_('workaround'), help_text=_('If you found a way to make the program work in spite of the bug, describe how you did it here.'), blank=True)
     status = models.IntegerField(_('status'), choices=STATUSES, default=10)
-    screenshot = models.ImageField(_('screenshot'), upload_to='bugs', blank=True)
+    screenshot = models.ImageField(_('screenshot'), help_text=_('upload a helpful screenshot if you have one'), upload_to='bugs', blank=True)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     updated = models.DateTimeField(_('updated'), auto_now=True)
 

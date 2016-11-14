@@ -38,10 +38,12 @@ MIDDLEWARE = [
 ]
 ROOT_URLCONF = 'burgerpot.urls'
 SECRET_KEY = ')sl8z6umlx$)=o#ehn652sh(sy+@!p%hj27#*le*b6o6!*#fkd'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'site_static')
 STATIC_URL = '/static/'
 TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [],
+    'DIRS': [os.path.join(BASE_DIR, 'templates')],
     'APP_DIRS': True,
     'OPTIONS': {'context_processors': [
         'django.template.context_processors.debug',

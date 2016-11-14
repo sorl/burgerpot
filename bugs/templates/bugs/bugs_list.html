@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block "primary" %}
+  <div class="container expand-on-small-only">
+    <div class="row valign change-form">
+      <div class="col s12 m12 l9 offset-l1">
+        <table>
+          {% for bug in bugs_list %}
+          <tr>
+            <td>{{ bug.created }}</td>
+            <td>{{ bug.description }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
